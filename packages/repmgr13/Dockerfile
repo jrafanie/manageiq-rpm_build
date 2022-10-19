@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi
+FROM registry.access.redhat.com/ubi9/ubi
 
 ENV TERM=xterm \
     RPM_SPEC=repmgr.spec
@@ -8,23 +8,20 @@ RUN ARCH=$(uname -m) && \
     dnf -y remove *subscription-manager* && \
     dnf -y update && \
     dnf -y install \
-      http://mirror.centos.org/centos/8-stream/BaseOS/${ARCH}/os/Packages/centos-stream-repos-8-2.el8.noarch.rpm \
-      http://mirror.centos.org/centos/8-stream/BaseOS/${ARCH}/os/Packages/centos-gpg-keys-8-2.el8.noarch.rpm \
-      https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
-    dnf -y module enable postgresql:13 && \
+      http://mirror.stream.centos.org/9-stream/BaseOS/${ARCH}/os/Packages/centos-stream-repos-9.0-18.el9.noarch.rpm \
+      http://mirror.stream.centos.org/9-stream/BaseOS/${ARCH}/os/Packages/centos-gpg-keys-9.0-18.el9.noarch.rpm \
+      https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm && \
     dnf -y group install "development tools" && \
-    dnf -y install \
+    dnf -y install --enablerepo=crb \
       ccache \
       clang-devel \
       flex \
-      libpq \
-      libpq-devel \
       libxslt-devel \
       llvm-toolset \
       openssl-devel \
       pam-devel \
       postgresql \
-      postgresql-devel \
+      postgresql-server-devel \
       postgresql-static \
       readline-devel \
       wget && \
@@ -33,4 +30,4 @@ RUN ARCH=$(uname -m) && \
 
 COPY . /root
 
-CMD ["/root/container-assets/build.sh"]
+ENTRYPOINT ["/root/container-assets/build.sh"]
