@@ -34,7 +34,7 @@ Requires: qpid-proton-c
 
 # For Appliance Console
 Requires: libsodium-devel
-Requires: network-scripts
+Requires: NetworkManager-initscripts-updown
 
 # For scanning
 Requires: glusterfs-fuse
