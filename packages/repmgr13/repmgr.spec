@@ -46,9 +46,9 @@ Requires(postun):   initscripts
 Group:        Applications/Databases
 BuildRoot:        %{_tmppath}/%{name}-%{version}%{extra_version}-%{release}-root-%(%{__id_u} -n)
 %endif
-BuildRequires:    postgresql, postgresql-devel, postgresql-static
+BuildRequires:    postgresql >= %{pgmajorversion}, postgresql-devel >= %{pgmajorversion}, postgresql-static >= %{pgmajorversion}
 BuildRequires:    libxslt-devel, pam-devel, openssl-devel, readline-devel, flex
-Requires:    postgresql-server
+Requires:    postgresql-server >= %{pgmajorversion}
 
 %if 0%{?pgpackageversion} >= 11 && 0%{?pgpackageversion} < 90 && 0%{?rhel} && 0%{?rhel} == 7
 BuildRequires:  llvm-toolset-7
