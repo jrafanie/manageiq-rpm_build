@@ -8,7 +8,7 @@ permissions:
   contents: read
 jobs:
   build_dependencies:
-    if: github.repository_owner == 'ManageIQ'
+    if: github.repository_owner == 'jrafanie'
     strategy:
       fail-fast: false
       matrix:
@@ -21,5 +21,3 @@ jobs:
     - uses: actions/checkout@v6
     - name: Build and push RPMs
       run: bin/build_dependencies
-      env:
-        RPM_BUILD_S3_API_KEY: "${{ secrets.RPM_BUILD_S3_API_KEY }}"
